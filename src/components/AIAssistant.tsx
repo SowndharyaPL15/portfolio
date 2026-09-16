@@ -51,6 +51,7 @@ Key contributions:
 • Debugged and tested applications for reliability`,
 
   certifications: `🏆 Full Stack Java Development – Simplilearn (2025)
+⚡ Java Full Stack with React JS & AI – Brainovision Solutions (2024)
 🥈 2nd Prize – Paper Presentation on "Aerial Object Detection" (IoT) – 2024`,
 
   contact: `📧 Email: plsowndharya@gmail.com
@@ -62,7 +63,7 @@ Key contributions:
 
   resume: `📄 Sowndharya's Resume is available for interactive preview and download.
 
-It includes her verified academic record (B.E. CSE Blockchain Honours, CGPA 8.35), 11 projects, software development internship at Mist Software, and certifications.`,
+It includes her verified academic record (B.E. CSE Blockchain Honours, CGPA 8.35), 11 projects, software development internship at Mist Software, and verified certifications.`,
 };
 
 type Intent =

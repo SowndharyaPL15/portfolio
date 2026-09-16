@@ -17,6 +17,7 @@ const STRENGTHS = [
 
 const ACHIEVEMENTS = [
   { year: "2025", title: "2nd Prize — Technical Symposium", desc: "IoT Aerial Object Detection research paper awarded 2nd prize at Sri Ramakrishna College Technical Symposium.", color: "#ffb703" },
+  { year: "2024", title: "Java Full Stack with React JS & AI", desc: "National Level STTP Certification by Brainovision Solutions on Java Full Stack with React & AI.", color: "#00c7b7" },
   { year: "2024", title: "Software Dev Intern @ Mist Software", desc: "Selected for software development internship — building full-stack web applications.", color: "#00f0ff" },
   { year: "2023", title: "Enrolled in B.E. CSE (Honours — Blockchain)", desc: "Accepted into Dr. N.G.P. Institute of Technology with Honours specialization in Blockchain.", color: "#39ff14" },
 ];
