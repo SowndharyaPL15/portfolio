@@ -58,13 +58,16 @@ export default function AboutWorkspace() {
         {/* Profile Card */}
         <motion.div {...card(0.05)} className="lg:col-span-5 cyber-panel rounded-xl p-5 space-y-4">
           <div className="flex items-center gap-4">
-            {/* Gradient Avatar */}
+            {/* Profile Photo */}
             <div
-              className="w-16 h-16 rounded-xl flex-shrink-0 flex items-center justify-center text-xl font-extrabold font-space relative overflow-hidden"
+              className="w-20 h-20 rounded-2xl flex-shrink-0 relative overflow-hidden p-[2px] shadow-lg transition-transform hover:scale-105 group"
               style={{ background: "var(--gradient-primary)", boxShadow: "0 0 24px var(--glow-md)" }}
             >
-              <span className="relative z-10 text-black">SP</span>
-              <div className="absolute inset-0 animate-spin-slow opacity-20" style={{ background: "conic-gradient(transparent, white, transparent)" }} />
+              <img
+                src="/photo.png"
+                alt="Sowndharya P.L."
+                className="w-full h-full object-cover object-top rounded-[14px]"
+              />
             </div>
             <div>
               <h3 className="font-dm-serif text-xl font-bold" style={{ color: "var(--text-main)" }}>Sowndharya P.L.</h3>
@@ -91,12 +94,6 @@ export default function AboutWorkspace() {
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Status */}
-          <div className="flex items-center gap-2 pt-1">
-            <span className="w-2 h-2 rounded-full bg-[#00ff88] animate-ping" />
-            <span className="font-space text-[10px] font-bold text-[#00ff88]">AVAILABLE FOR FULL-TIME ROLES</span>
           </div>
         </motion.div>
 

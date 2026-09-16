@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import HolographicOrb from "./HolographicOrb";
 import { motion } from "framer-motion";
 
 const ROLES = [
@@ -85,6 +84,23 @@ export default function Hero() {
       {/* Scanner line */}
       <div className="scan-line" aria-hidden="true" />
 
+      {/* Profile Photo */}
+      <div className="relative flex-shrink-0 group z-10">
+        <div
+          className="w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-2xl p-[2px] relative overflow-hidden transition-all duration-300 group-hover:scale-105 shadow-2xl"
+          style={{
+            background: "var(--gradient-primary)",
+            boxShadow: "0 0 30px var(--glow-md)",
+          }}
+        >
+          <img
+            src="/photo.png"
+            alt="Sowndharya P.L."
+            className="w-full h-full object-cover object-top rounded-[14px]"
+          />
+        </div>
+      </div>
+
       {/* Info Section */}
       <div className="flex-1 space-y-4 relative z-10 min-w-0">
         {/* Greeting */}
@@ -131,9 +147,6 @@ export default function Hero() {
             aria-hidden="true"
           />
           <div className="flex flex-wrap items-center gap-1.5 ml-auto md:ml-0">
-            <span className="text-[10px] px-2 py-0.5 rounded border border-[#00ff88]/30 bg-[#00ff88]/10 text-[#00ff88] font-bold">
-              Available Full-Time
-            </span>
             <span className="text-[10px] px-2 py-0.5 rounded border border-[#00c7b7]/30 bg-[#00c7b7]/10 text-[#00c7b7] font-bold">
               CGPA: 8.35
             </span>
@@ -210,35 +223,6 @@ export default function Hero() {
           </button>
         </motion.div>
       </div>
-
-      {/* Holographic Orb */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.2, duration: 0.7, ease: "easeOut" }}
-        className="relative flex-shrink-0 w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64"
-        aria-hidden="true"
-      >
-        {/* Outer spin ring */}
-        <div
-          className="absolute inset-0 rounded-full border animate-spin-slow opacity-20"
-          style={{ borderColor: "var(--accent-primary)" }}
-        />
-        {/* Inner counter-spin */}
-        <div
-          className="absolute inset-3 rounded-full border animate-spin-slow-rev opacity-10"
-          style={{ borderColor: "var(--accent-secondary)" }}
-        />
-        {/* Canvas orb */}
-        <div className="absolute inset-4 rounded-full overflow-hidden">
-          <HolographicOrb />
-        </div>
-        {/* Glow */}
-        <div
-          className="absolute inset-0 rounded-full pointer-events-none animate-glow-pulse"
-          style={{ background: "radial-gradient(circle, var(--glow-xs) 0%, transparent 70%)" }}
-        />
-      </motion.div>
     </motion.div>
   );
 }

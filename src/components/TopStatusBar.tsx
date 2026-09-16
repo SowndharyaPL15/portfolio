@@ -53,17 +53,6 @@ export default function TopStatusBar({ mobileOpen, setMobileOpen }: TopStatusBar
 
       {/* METRICS ROW (Responsive across tablet md and desktop lg) */}
       <div className="hidden md:flex flex-1 items-center gap-3 lg:gap-4 h-full pl-2 overflow-hidden">
-        {/* Status */}
-        <div className="flex flex-col justify-center h-full border-r pr-3 lg:pr-4" style={{ borderColor: "var(--border-subtle)" }}>
-          <span className="text-[9px] lg:text-[10px] font-space tracking-widest text-gray-500 mb-0.5">STATUS</span>
-          <div className="flex items-center gap-1.5 lg:gap-2">
-            <div className="relative w-2 h-2 flex-shrink-0">
-              <div className="absolute inset-0 rounded-full" style={{ background: "var(--accent-primary)" }} />
-              <div className="absolute inset-0 rounded-full animate-ping" style={{ background: "var(--accent-primary)", animationDuration: "2s" }} />
-            </div>
-            <span className="text-xs font-medium truncate max-w-[130px] lg:max-w-none" style={{ color: "var(--accent-primary)" }}>Available for Opportunities</span>
-          </div>
-        </div>
 
         {/* Projects */}
         <div className="flex flex-col justify-center h-full border-r pr-3 lg:pr-4 pl-1 lg:pl-2" style={{ borderColor: "var(--border-subtle)" }}>

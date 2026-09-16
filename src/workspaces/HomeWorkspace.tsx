@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
-import HolographicOrb from "@/components/HolographicOrb";
 import RadarChart from "@/components/RadarChart";
 
 const ROLES = [
@@ -158,8 +157,25 @@ export default function HomeWorkspace({ setActiveTab, setSelectedProjectNum }: H
       <div className="flex flex-col lg:flex-row gap-2.5 flex-shrink-0">
 
         {/* Hero Panel */}
-        <div className="flex-1 cyber-panel rounded-xl p-4 flex flex-col sm:flex-row relative overflow-hidden">
-          <div className="flex-1 flex flex-col justify-center z-10">
+        <div className="flex-1 cyber-panel rounded-xl p-4 flex flex-col sm:flex-row items-center gap-4 relative overflow-hidden">
+          {/* Profile Photo */}
+          <div className="relative flex-shrink-0 group">
+            <div
+              className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-2xl p-[2px] relative overflow-hidden transition-all duration-300 group-hover:scale-105 shadow-xl"
+              style={{
+                background: "var(--gradient-primary)",
+                boxShadow: "0 0 24px var(--glow-md)",
+              }}
+            >
+              <img
+                src="/photo.png"
+                alt="Sowndharya P.L."
+                className="w-full h-full object-cover object-top rounded-[14px]"
+              />
+            </div>
+          </div>
+
+          <div className="flex-1 flex flex-col justify-center z-10 min-w-0">
             <div className="flex items-center gap-2 mb-1">
               <span className="text-2xl">👋</span>
               <span className="font-space text-xs" style={{ color: "var(--text-muted)" }}>Hi, I&apos;m</span>
@@ -205,9 +221,6 @@ export default function HomeWorkspace({ setActiveTab, setSelectedProjectNum }: H
                 LeetCode
               </a>
             </div>
-          </div>
-          <div className="hidden sm:block w-40 md:w-48 lg:w-56 h-36 sm:h-full relative flex-shrink-0 self-center">
-            <HolographicOrb />
           </div>
         </div>
 
