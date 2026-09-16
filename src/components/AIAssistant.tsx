@@ -60,9 +60,9 @@ Key contributions:
 🐙 GitHub: github.com/SowndharyaPL15
 💡 LeetCode: leetcode.com/u/SOWNDHARYAPL`,
 
-  resume: `You can download Sowndharya's resume from the Hero section or directly at /SOWNDHARYA RESUME.pdf.
+  resume: `📄 Sowndharya's Resume is available for interactive preview and download.
 
-It includes her full education, experience, projects, skills, and certifications.`,
+It includes her verified academic record (B.E. CSE Blockchain Honours, CGPA 8.35), 11 projects, software development internship at Mist Software, and certifications.`,
 };
 
 type Intent =
@@ -295,7 +295,19 @@ export default function AIAssistant() {
                             }
                       }
                     >
-                      {msg.text}
+                      <div>{msg.text}</div>
+                      {msg.role === "bot" && (msg.text.includes("Resume") || msg.text.includes("resume")) && (
+                        <button
+                          onClick={() => window.dispatchEvent(new CustomEvent("open-resume-preview"))}
+                          className="mt-2.5 font-space text-[10px] px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition-all hover:scale-105 cursor-pointer shadow-sm"
+                          style={{ background: "var(--gradient-primary)", color: "#000" }}
+                        >
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                          </svg>
+                          <span>Preview & Download Resume</span>
+                        </button>
+                      )}
                     </div>
                   </motion.div>
                 ))}

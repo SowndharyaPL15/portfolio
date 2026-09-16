@@ -15,9 +15,7 @@ const KB = {
     "**Software Development Intern** @ Mist Software Solutions, Coimbatore (2025 · 15 Days)\n• Built responsive UIs using HTML, CSS, JavaScript, and Bootstrap.\n• Developed backend application logic using PHP.\n• Implemented CRUD operations for dynamic, real-time data management.\n• Worked with relational databases to design structured data storage solutions.\n• Debugged and rigorously tested applications to ensure software reliability.",
   certifications:
     "**Java Full Stack Development** — Simplilearn\n**2nd Prize** — Paper Presentation on IoT Aerial Detection",
-  contact:
-    "📧 plsowndharya@gmail.com\n📞 +91 9884606863\n💼 linkedin.com/in/sowndharyapl\n🐙 github.com/SowndharyaPL15\n🏆 leetcode.com/u/SOWNDHARYAPL\n📍 Tirupur, Tamil Nadu, India",
-  resume: "📄 Download Resume → /SOWNDHARYA RESUME.pdf",
+  resume: "📄 Sowndharya's Resume is ready for interactive preview and download.",
 };
 
 function detectIntent(q: string): string {
@@ -146,7 +144,22 @@ export default function AITerminal() {
                         color: "var(--text-muted)",
                       }}
                     >
-                      {m.text}
+                      <div>{m.text}</div>
+                      {m.role === "bot" && (m.text.includes("Resume") || m.text.includes("resume")) && (
+                        <button
+                          onClick={() => {
+                            setExpanded(false);
+                            window.dispatchEvent(new CustomEvent("open-resume-preview"));
+                          }}
+                          className="mt-2 font-space text-[10px] px-2.5 py-1 rounded font-bold transition-all hover:scale-105 cursor-pointer flex items-center gap-1.5"
+                          style={{ background: "var(--gradient-primary)", color: "#000" }}
+                        >
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                          </svg>
+                          Preview &amp; Download Resume
+                        </button>
+                      )}
                     </div>
                   )}
                 </div>

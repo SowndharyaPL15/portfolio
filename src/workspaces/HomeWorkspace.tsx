@@ -173,11 +173,16 @@ export default function HomeWorkspace({ setActiveTab, setSelectedProjectNum }: H
               Building scalable, user-centric applications with a passion for clean code and meaningful experiences.
             </p>
             <div className="flex flex-wrap items-center gap-2.5 mb-3">
-              <a href="/SOWNDHARYA RESUME.pdf" download
+              <button
+                onClick={() => window.dispatchEvent(new CustomEvent("open-resume-preview"))}
                 className="flex items-center gap-2 px-3.5 py-1.5 rounded font-space text-xs font-bold text-white hover:scale-105 transition-transform"
-                style={{ background: "var(--gradient-primary)" }}>
+                style={{ background: "var(--gradient-primary)" }}
+              >
+                <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                </svg>
                 Download Resume ↓
-              </a>
+              </button>
               <button onClick={() => go("contact")}
                 className="flex items-center gap-2 px-3.5 py-1.5 rounded font-space text-xs font-bold transition-colors hover:bg-[var(--glow-sm)]"
                 style={{ border: "1px solid var(--border-subtle)" }}>

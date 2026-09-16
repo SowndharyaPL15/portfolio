@@ -21,6 +21,7 @@ import ContactWorkspace from "@/workspaces/ContactWorkspace";
 
 const BootScreen = dynamic(() => import("@/components/BootScreen"), { ssr: false });
 const CommandPalette = dynamic(() => import("@/components/CommandPalette"), { ssr: false });
+const ResumePreviewModal = dynamic(() => import("@/components/ResumePreviewModal"), { ssr: false });
 
 /* OS Workspace transition animation: Snappy GPU-accelerated crossfade (150ms) */
 const WORKSPACE_VARIANTS = {
@@ -35,6 +36,7 @@ export default function Home() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showBoot, setShowBoot] = useState(false);
   const [bootDone, setBootDone] = useState(false);
+  const [resumeOpen, setResumeOpen] = useState(false);
 
   /* Boot screen check */
   useEffect(() => {
@@ -44,6 +46,13 @@ export default function Home() {
     } else {
       setBootDone(true);
     }
+  }, []);
+
+  /* Global Resume Preview Trigger listener */
+  useEffect(() => {
+    const handleOpenResume = () => setResumeOpen(true);
+    window.addEventListener("open-resume-preview", handleOpenResume);
+    return () => window.removeEventListener("open-resume-preview", handleOpenResume);
   }, []);
 
   const handleBootDone = useCallback(() => {
@@ -67,6 +76,9 @@ export default function Home() {
 
       {/* Command Palette (Ctrl+K) */}
       <CommandPalette setActiveTab={setActiveTab} />
+
+      {/* Resume Preview Modal with Download Option */}
+      <ResumePreviewModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
 
       {/* Desktop OS Container — 100vw, 100vh locked */}
       <div

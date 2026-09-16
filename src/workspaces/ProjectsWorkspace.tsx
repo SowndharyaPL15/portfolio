@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ProjectCard, { type ProjectData } from "@/components/ProjectCard";
-import PrecisionOncologyReport from "@/components/PrecisionOncologyReport";
 
 const PROJECTS: (ProjectData & {
   problem?: string;
@@ -326,14 +325,12 @@ interface ProjectsWorkspaceProps {
 
 export default function ProjectsWorkspace({ selectedProjectNum, setSelectedProjectNum }: ProjectsWorkspaceProps) {
   const [selectedProject, setSelectedProject] = useState<typeof PROJECTS[0] | null>(null);
-  const [projectSubTab, setProjectSubTab] = useState<"report" | "specs">("report");
 
   useEffect(() => {
     if (selectedProjectNum) {
       const found = PROJECTS.find(p => p.num === selectedProjectNum);
       if (found) {
         setSelectedProject(found);
-        setProjectSubTab("report");
       }
     } else {
       setSelectedProject(null);
@@ -468,144 +465,95 @@ export default function ProjectsWorkspace({ selectedProjectNum, setSelectedProje
               </div>
             </div>
 
-            {/* Project 11 Special CDSS Sub-Navigation */}
-            {selectedProject.num === "Project 11" && (
-              <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-xl border border-[var(--border-accent)] bg-[var(--bg-surface)]">
-                <button
-                  onClick={() => setProjectSubTab("report")}
-                  className="flex-1 min-w-[200px] font-space text-xs py-2.5 px-4 rounded-lg font-bold flex items-center justify-center gap-2 transition-all shadow-sm"
-                  style={{
-                    background: projectSubTab === "report" ? "var(--gradient-primary)" : "transparent",
-                    color: projectSubTab === "report" ? "#000" : "var(--text-muted)",
-                  }}
-                >
-                  <span>🔬</span>
-                  <span>INTERACTIVE CLINICAL REPORT (CDSS)</span>
-                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-black/20 text-current font-mono">LIVE AI</span>
-                </button>
-                <button
-                  onClick={() => setProjectSubTab("specs")}
-                  className="flex-1 min-w-[200px] font-space text-xs py-2.5 px-4 rounded-lg font-bold flex items-center justify-center gap-2 transition-all"
-                  style={{
-                    background: projectSubTab === "specs" ? "var(--gradient-primary)" : "transparent",
-                    color: projectSubTab === "specs" ? "#000" : "var(--text-muted)",
-                  }}
-                >
-                  <span>⚙️</span>
-                  <span>SYSTEM ARCHITECTURE & SPECS</span>
-                </button>
+            {/* Grid 2-col: Architecture & Problem */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="cyber-panel rounded-xl p-5 space-y-2">
+                <div className="font-space text-[10px] uppercase tracking-widest text-glow font-bold">🎯 PROBLEM STATEMENT</div>
+                <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>
+                  {selectedProject.problem}
+                </p>
               </div>
-            )}
 
-            {/* If Project 11 and report subTab is active, render PrecisionOncologyReport */}
-            {selectedProject.num === "Project 11" && projectSubTab === "report" ? (
-              <motion.div
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.15 }}
-                className="space-y-4"
-              >
-                <PrecisionOncologyReport />
-              </motion.div>
-            ) : (
-              /* Standard Technical Specs & Architecture View */
-              <motion.div
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.15 }}
-                className="space-y-5"
-              >
-                {/* Grid 2-col: Architecture & Problem */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="cyber-panel rounded-xl p-5 space-y-2">
-                    <div className="font-space text-[10px] uppercase tracking-widest text-glow font-bold">🎯 PROBLEM STATEMENT</div>
-                    <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>
-                      {selectedProject.problem}
-                    </p>
-                  </div>
+              <div className="cyber-panel rounded-xl p-5 space-y-2">
+                <div className="font-space text-[10px] uppercase tracking-widest text-glow font-bold">⚙️ SYSTEM ARCHITECTURE DIAGRAM</div>
+                <div className="font-space text-xs p-3 rounded border border-theme font-bold leading-relaxed" style={{ color: "var(--accent-primary)", background: "var(--bg-input)" }}>
+                  {selectedProject.architecture}
+                </div>
+              </div>
+            </div>
 
-                  <div className="cyber-panel rounded-xl p-5 space-y-2">
-                    <div className="font-space text-[10px] uppercase tracking-widest text-glow font-bold">⚙️ SYSTEM ARCHITECTURE DIAGRAM</div>
-                    <div className="font-space text-xs p-3 rounded border border-theme font-bold leading-relaxed" style={{ color: "var(--accent-primary)", background: "var(--bg-input)" }}>
-                      {selectedProject.architecture}
-                    </div>
-                  </div>
+            {/* Grid 2-col: Personal Contribution & Results */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="cyber-panel rounded-xl p-5 space-y-2" style={{ borderLeft: "3px solid #39ff14" }}>
+                <div className="font-space text-[10px] uppercase tracking-widest font-bold" style={{ color: "#39ff14" }}>🛠️ WHAT I PERSONALLY BUILT</div>
+                <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>
+                  {selectedProject.personalContribution}
+                </p>
+              </div>
+
+              <div className="cyber-panel rounded-xl p-5 space-y-2" style={{ borderLeft: "3px solid #ffb703" }}>
+                <div className="font-space text-[10px] uppercase tracking-widest font-bold" style={{ color: "#ffb703" }}>📈 MEASURABLE RESULTS &amp; OUTCOMES</div>
+                <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>
+                  {selectedProject.results}
+                </p>
+              </div>
+            </div>
+
+            {/* Workflow & Tech Stack */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+              <div className="md:col-span-7 cyber-panel rounded-xl p-5 space-y-3">
+                <div className="font-space text-[10px] uppercase tracking-widest text-glow font-bold">🔄 EXECUTION WORKFLOW</div>
+                <ol className="space-y-2 font-space text-xs" style={{ color: "var(--text-muted)" }}>
+                  {selectedProject.workflow?.map((step, idx) => (
+                    <li key={idx} className="flex items-start gap-2.5">
+                      <span className="font-bold px-1.5 py-0.5 rounded text-[10px]" style={{ background: "var(--glow-xs)", color: "var(--accent-secondary)" }}>
+                        0{idx + 1}
+                      </span>
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+              <div className="md:col-span-5 cyber-panel rounded-xl p-5 space-y-3">
+                <div className="font-space text-[10px] uppercase tracking-widest text-glow font-bold">💻 TECHNOLOGIES USED</div>
+                <div className="flex flex-wrap gap-2">
+                  {selectedProject.tags.map((t) => (
+                    <span key={t} className="font-space text-xs px-3 py-1 rounded-md font-bold" style={{ background: "var(--glow-xs)", border: "1px solid var(--border-accent)", color: "var(--accent-primary)" }}>
+                      {t}
+                    </span>
+                  ))}
                 </div>
 
-                {/* Grid 2-col: Personal Contribution & Results */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="cyber-panel rounded-xl p-5 space-y-2" style={{ borderLeft: "3px solid #39ff14" }}>
-                    <div className="font-space text-[10px] uppercase tracking-widest font-bold" style={{ color: "#39ff14" }}>🛠️ WHAT I PERSONALLY BUILT</div>
-                    <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>
-                      {selectedProject.personalContribution}
-                    </p>
-                  </div>
-
-                  <div className="cyber-panel rounded-xl p-5 space-y-2" style={{ borderLeft: "3px solid #ffb703" }}>
-                    <div className="font-space text-[10px] uppercase tracking-widest font-bold" style={{ color: "#ffb703" }}>📈 MEASURABLE RESULTS &amp; OUTCOMES</div>
-                    <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>
-                      {selectedProject.results}
-                    </p>
-                  </div>
+                <div className="pt-2">
+                  <div className="font-space text-[10px] uppercase tracking-widest text-glow mb-1 font-bold">🚀 KEY FEATURES</div>
+                  <ul className="space-y-1 text-xs" style={{ color: "var(--text-muted)" }}>
+                    {selectedProject.features.map((f) => (
+                      <li key={f} className="flex items-center gap-2">
+                        <span style={{ color: "var(--accent-primary)" }}>▸</span> {f}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
+              </div>
+            </div>
 
-                {/* Workflow & Tech Stack */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-                  <div className="md:col-span-7 cyber-panel rounded-xl p-5 space-y-3">
-                    <div className="font-space text-[10px] uppercase tracking-widest text-glow font-bold">🔄 EXECUTION WORKFLOW</div>
-                    <ol className="space-y-2 font-space text-xs" style={{ color: "var(--text-muted)" }}>
-                      {selectedProject.workflow?.map((step, idx) => (
-                        <li key={idx} className="flex items-start gap-2.5">
-                          <span className="font-bold px-1.5 py-0.5 rounded text-[10px]" style={{ background: "var(--glow-xs)", color: "var(--accent-secondary)" }}>
-                            0{idx + 1}
-                          </span>
-                          <span>{step}</span>
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
+            {/* Challenges & Future Improvements */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="cyber-panel rounded-xl p-5 space-y-2">
+                <div className="font-space text-[10px] uppercase tracking-widest text-glow font-bold">⚡ KEY TECHNICAL CHALLENGES</div>
+                <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>
+                  {selectedProject.challenges}
+                </p>
+              </div>
 
-                  <div className="md:col-span-5 cyber-panel rounded-xl p-5 space-y-3">
-                    <div className="font-space text-[10px] uppercase tracking-widest text-glow font-bold">💻 TECHNOLOGIES USED</div>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedProject.tags.map((t) => (
-                        <span key={t} className="font-space text-xs px-3 py-1 rounded-md font-bold" style={{ background: "var(--glow-xs)", border: "1px solid var(--border-accent)", color: "var(--accent-primary)" }}>
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="pt-2">
-                      <div className="font-space text-[10px] uppercase tracking-widest text-glow mb-1 font-bold">🚀 KEY FEATURES</div>
-                      <ul className="space-y-1 text-xs" style={{ color: "var(--text-muted)" }}>
-                        {selectedProject.features.map((f) => (
-                          <li key={f} className="flex items-center gap-2">
-                            <span style={{ color: "var(--accent-primary)" }}>▸</span> {f}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Challenges & Future Improvements */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="cyber-panel rounded-xl p-5 space-y-2">
-                    <div className="font-space text-[10px] uppercase tracking-widest text-glow font-bold">⚡ KEY TECHNICAL CHALLENGES</div>
-                    <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>
-                      {selectedProject.challenges}
-                    </p>
-                  </div>
-
-                  <div className="cyber-panel rounded-xl p-5 space-y-2">
-                    <div className="font-space text-[10px] uppercase tracking-widest text-glow font-bold">🔮 FUTURE ROADMAP</div>
-                    <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>
-                      {selectedProject.future}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            )}
+              <div className="cyber-panel rounded-xl p-5 space-y-2">
+                <div className="font-space text-[10px] uppercase tracking-widest text-glow font-bold">🔮 FUTURE ROADMAP</div>
+                <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>
+                  {selectedProject.future}
+                </p>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

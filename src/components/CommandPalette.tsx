@@ -99,11 +99,11 @@ export default function CommandPalette({ setActiveTab }: CommandPaletteProps) {
     },
     {
       id: "resume",
-      label: "Download Resume",
+      label: "Preview & Download Resume",
       icon: "📄",
       shortcut: "⌘D",
       action: () => {
-        window.open("/SOWNDHARYA RESUME.pdf", "_blank");
+        window.dispatchEvent(new CustomEvent("open-resume-preview"));
         setOpen(false);
       },
       category: "Actions",
