@@ -52,6 +52,7 @@ Key contributions:
 
   certifications: `🏆 Full Stack Java Development – Simplilearn (2025)
 ⚡ Java Full Stack with React JS & AI – Brainovision Solutions (2024)
+🐍 Data Science using Python – Dr. N.G.P. iTech & Brainovision (2024)
 🥈 2nd Prize – Paper Presentation on "Aerial Object Detection" (IoT) – 2024`,
 
   contact: `📧 Email: plsowndharya@gmail.com

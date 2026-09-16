@@ -14,7 +14,7 @@ const KB = {
   experience:
     "**Software Development Intern** @ Mist Software Solutions, Coimbatore (2025 · 15 Days)\n• Built responsive UIs using HTML, CSS, JavaScript, and Bootstrap.\n• Developed backend application logic using PHP.\n• Implemented CRUD operations for dynamic, real-time data management.\n• Worked with relational databases to design structured data storage solutions.\n• Debugged and rigorously tested applications to ensure software reliability.",
   certifications:
-    "**Java Full Stack Development** — Simplilearn (2025)\n**Java Full Stack with React JS & AI** — Brainovision Solutions (2024)\n**2nd Prize** — Paper Presentation on IoT Aerial Detection (2024)",
+    "**Full Stack Java Development** — Simplilearn (2025)\n**Java Full Stack with React JS & AI** — Brainovision Solutions (2024)\n**Data Science using Python** — Dr. N.G.P. iTech & Brainovision (2024)\n**2nd Prize** — Paper Presentation on Aerial Object Detection IoT (2024)",
   resume: "📄 Sowndharya's Resume is ready for interactive preview and download.",
 };
 

@@ -25,6 +25,16 @@ const CERTIFICATIONS = [
     desc:   "National Level Short Term Training Programme (STTP 2024) focusing on Java backend development, React frontend, and AI capabilities.",
   },
   {
+    title:  "Data Science using Python",
+    issuer: "Dr. N.G.P. iTech & Brainovision · AICTE",
+    year:   "2024",
+    icon:   "🐍",
+    badge:  "#38bdf8",
+    link:   "/Data Science using Python.pdf",
+    skills: ["Python", "Data Science", "Data Analytics", "AICTE", "INSW 2024"],
+    desc:   "International Level Student Workshop (INSW 2024) certification on Data Science with Python organized in association with Brainovision & AICTE.",
+  },
+  {
     title:  "2nd Prize – Aerial Object Detection",
     issuer: "Paper Presentation · IoT Theme",
     year:   "2024",

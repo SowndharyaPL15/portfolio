@@ -243,7 +243,7 @@ export default function HomeWorkspace({ setActiveTab, setSelectedProjectNum }: H
         {[
           { icon: "🚀", v: "11", l: "Projects Completed", c: "var(--accent-primary)" },
           { icon: "</>", v: "15+", l: "Technologies Mastered", c: "var(--accent-secondary)" },
-          { icon: "📄", v: "3", l: "Certifications & Achievements", c: "var(--accent-tertiary)" },
+          { icon: "📄", v: "4", l: "Certifications & Achievements", c: "var(--accent-tertiary)" },
           { icon: "💼", v: "1", l: "Internship Experience", c: "var(--accent-primary)" },
           { icon: "🎓", v: "2023-2027", l: "Academic Journey", c: "var(--accent-secondary)" },
           { icon: "⭐", v: "8.35", l: "CGPA (SEM-6)", c: "var(--accent-tertiary)" },
@@ -377,28 +377,35 @@ export default function HomeWorkspace({ setActiveTab, setSelectedProjectNum }: H
         <div className="cyber-panel rounded-xl p-3 flex flex-col overflow-hidden">
           <div className="flex items-center justify-between mb-2">
             <span className="font-space text-[9px] tracking-widest uppercase font-bold" style={{ color: "var(--text-muted)" }}>Certifications & Achievements</span>
-            <button onClick={() => go("certificates")} className="font-space text-[8px] hover:underline" style={{ color: "var(--accent-primary)" }}>View All (3) →</button>
+            <button onClick={() => go("certificates")} className="font-space text-[8px] hover:underline" style={{ color: "var(--accent-primary)" }}>View All (4) →</button>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 flex-1">
-            <a href="/SIMPLELEARN CERTIFICATION.pdf" target="_blank" rel="noreferrer" className="rounded p-2 flex items-center gap-2 hover:border-[var(--accent-secondary)] transition-colors block" style={{ border: "1px solid var(--border-subtle)", background: "var(--bg-input)" }}>
-              <span className="text-base flex-shrink-0">🏆</span>
+          <div className="grid grid-cols-2 gap-1.5 flex-1">
+            <a href="/SIMPLELEARN CERTIFICATION.pdf" target="_blank" rel="noreferrer" className="rounded p-1.5 flex items-center gap-1.5 hover:border-[var(--accent-secondary)] transition-colors block" style={{ border: "1px solid var(--border-subtle)", background: "var(--bg-input)" }}>
+              <span className="text-sm flex-shrink-0">🏆</span>
               <div className="min-w-0">
-                <div className="font-space text-[8.5px] font-bold truncate" style={{ color: "var(--accent-secondary)" }}>Simplilearn (2025)</div>
-                <div className="font-space text-[7px] truncate" style={{ color: "var(--text-muted)" }}>Full Stack Java Development</div>
+                <div className="font-space text-[8px] font-bold truncate" style={{ color: "var(--accent-secondary)" }}>Simplilearn (2025)</div>
+                <div className="font-space text-[6.5px] truncate" style={{ color: "var(--text-muted)" }}>Full Stack Java Dev</div>
               </div>
             </a>
-            <a href="/Java Full Stack with React JS & AI.pdf" target="_blank" rel="noreferrer" className="rounded p-2 flex items-center gap-2 hover:border-[var(--accent-primary)] transition-colors block" style={{ border: "1px solid var(--border-subtle)", background: "var(--bg-input)" }}>
-              <span className="text-base flex-shrink-0">⚡</span>
+            <a href="/Java Full Stack with React JS & AI.pdf" target="_blank" rel="noreferrer" className="rounded p-1.5 flex items-center gap-1.5 hover:border-[var(--accent-primary)] transition-colors block" style={{ border: "1px solid var(--border-subtle)", background: "var(--bg-input)" }}>
+              <span className="text-sm flex-shrink-0">⚡</span>
               <div className="min-w-0">
-                <div className="font-space text-[8.5px] font-bold truncate" style={{ color: "var(--accent-primary)" }}>Brainovision (2024)</div>
-                <div className="font-space text-[7px] truncate" style={{ color: "var(--text-muted)" }}>Java Full Stack + React & AI</div>
+                <div className="font-space text-[8px] font-bold truncate" style={{ color: "var(--accent-primary)" }}>Brainovision (2024)</div>
+                <div className="font-space text-[6.5px] truncate" style={{ color: "var(--text-muted)" }}>Java Full Stack + AI</div>
               </div>
             </a>
-            <a href="/PAPER PRESENTATION.pdf" target="_blank" rel="noreferrer" className="rounded p-2 flex items-center gap-2 hover:border-[#FFA116] transition-colors block" style={{ border: "1px solid var(--border-subtle)", background: "var(--bg-input)" }}>
-              <span className="text-base flex-shrink-0">🥈</span>
+            <a href="/Data Science using Python.pdf" target="_blank" rel="noreferrer" className="rounded p-1.5 flex items-center gap-1.5 hover:border-[#38bdf8] transition-colors block" style={{ border: "1px solid var(--border-subtle)", background: "var(--bg-input)" }}>
+              <span className="text-sm flex-shrink-0">🐍</span>
               <div className="min-w-0">
-                <div className="font-space text-[8.5px] font-bold truncate" style={{ color: "#FFA116" }}>2nd Prize (2024)</div>
-                <div className="font-space text-[7px] truncate" style={{ color: "var(--text-muted)" }}>Aerial Object Detection IoT</div>
+                <div className="font-space text-[8px] font-bold truncate" style={{ color: "#38bdf8" }}>Brainovision & NGP (2024)</div>
+                <div className="font-space text-[6.5px] truncate" style={{ color: "var(--text-muted)" }}>Data Science Python</div>
+              </div>
+            </a>
+            <a href="/PAPER PRESENTATION.pdf" target="_blank" rel="noreferrer" className="rounded p-1.5 flex items-center gap-1.5 hover:border-[#FFA116] transition-colors block" style={{ border: "1px solid var(--border-subtle)", background: "var(--bg-input)" }}>
+              <span className="text-sm flex-shrink-0">🥈</span>
+              <div className="min-w-0">
+                <div className="font-space text-[8px] font-bold truncate" style={{ color: "#FFA116" }}>2nd Prize (2024)</div>
+                <div className="font-space text-[6.5px] truncate" style={{ color: "var(--text-muted)" }}>Aerial Object Detection</div>
               </div>
             </a>
           </div>
