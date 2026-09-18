@@ -2,44 +2,14 @@
 
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
-/* ── Knowledge Base (same as AIAssistant) ─────────────────────────────── */
-const KB = {
-  skills:
-    "**Programming:** Java, Python, C\n**AI / Machine Learning:** PyTorch, OpenCV, CNN, Image Processing, Grad-CAM / XAI\n**Web:** HTML, CSS, JavaScript, PHP, Laravel, Node.js, Express, Bootstrap, React (Next.js)\n**Database:** SQL, MySQL, PostgreSQL, SQLite\n**DevOps:** Docker, Kubernetes\n**Tools:** Git, GitHub, VS Code, Android Studio, Postman, IntelliJ IDEA",
-  projects:
-    "1. **CuraNet – Caregiver Support System** (HTML, CSS, JS, PostgreSQL) [Demo: https://curanet-mj06.onrender.com/]\n2. **PharmaTrace AI – Medicine Authentication** (Node.js, Express, PostgreSQL, Python, Flask, OpenCV) [Demo: https://pharmatrace-web-server.onrender.com]\n3. **SmartExpensePro – SMS Expense Tracker** (Android, Java, SMS API, SQLite, MPAndroidChart) [Demo: https://smartexpensepro.onrender.com/]\n4. **Automated Aerial Object Detection – IoT & AI** (Arduino, Embedded Systems, IoT, C, C++) [GitHub: https://github.com/SowndharyaPL15/Automated-Aerial-Object-Detection | Demo: https://www.tinkercad.com/things/3HbPGczwYv0-automated-aerial-object-detection?sharecode=FA4-ENWj_yRSs6VpOnL5FjKiSQH9pYLQxryuBFYuDFs]\n5. **CivicPulse – Smart Civic Issue Management** (PHP, MySQL, JavaScript, Bootstrap) [Demo: https://civicpulse-jq8k.onrender.com]\n6. **Connectify – Real-Time Chat Application** (Laravel, PHP, MySQL, JavaScript, WebSockets) [Demo: https://connectify-bw2w.onrender.com]\n7. **ModelHubX – MLOps Registry & Deployment** (FastAPI, Kubernetes, Redis, Docker, Next.js) [Demo: https://modelhubx-1.onrender.com/]\n8. **AI Product Authentication System** (Python, PyTorch, OpenCV, CNN, React) [Demo: https://ai-product-authentication-system.onrender.com]\n9. **Clixora – URL Shortener & Analytics** (React, Node.js, Express, PostgreSQL) [Demo: https://clixora-frontend.onrender.com]\n10. **INDUS AI – Industrial Cognitive Memory System** (FastAPI, React, PostgreSQL, FAISS, LangChain, Python) [Demo: https://indus-ai-frontend.onrender.com]\n11. **Precision Oncology – Clinical Decision Support System** (FastAPI, React, TensorFlow, PyTorch, DenseNet, Explainable AI) [Demo: https://precision-oncology-frontend.onrender.com]",
-  education:
-    "**B.E. Computer Science Engineering**\nDr. N.G.P. Institute of Technology, Coimbatore\n2023–2027 | CGPA: 8.35/10\n\n**Higher Secondary (HSE)** — 84%\n**SSLC** — 2021",
-  experience:
-    "**Software Development Intern** @ Mist Software Solutions, Coimbatore (2025 · 15 Days)\n• Built responsive UIs using HTML, CSS, JavaScript, and Bootstrap.\n• Developed backend application logic using PHP.\n• Implemented CRUD operations for dynamic, real-time data management.\n• Worked with relational databases to design structured data storage solutions.\n• Debugged and rigorously tested applications to ensure software reliability.",
-  certifications:
-    "**Full Stack Java Development** — Simplilearn (2025)\n**Java Full Stack with React JS & AI** — Brainovision Solutions (2024)\n**Data Science using Python** — Dr. N.G.P. iTech & Brainovision (2024)\n**2nd Prize** — Paper Presentation on Aerial Object Detection IoT (2024)",
-  resume: "📄 Sowndharya's Resume is ready for interactive preview and download.",
-};
-
-function detectIntent(q: string): string {
-  const t = q.toLowerCase();
-  if (/skill|tech|language|python|java|react|ml|ai/.test(t)) return "skills";
-  if (/project|curanet|pharma|expense|civic|connectify|hub|detect/.test(t)) return "projects";
-  if (/edu|college|cgpa|study|degree|university/.test(t)) return "education";
-  if (/intern|experience|work|job|mist/.test(t)) return "experience";
-  if (/cert|award|prize/.test(t)) return "certifications";
-  if (/contact|email|phone|linkedin|reach/.test(t)) return "contact";
-  if (/resume|cv|download/.test(t)) return "resume";
-  return "default";
-}
-
-function getResponse(intent: string): string {
-  return KB[intent as keyof typeof KB] ??
-    "I can answer questions about skills, projects, education, experience, certifications, or contact info. Try: \"What are her skills?\" or \"Tell me about her projects\"";
-}
+import { detectIntent, getChatResponse } from "@/utils/chatEngine";
 
 /* ── Quick commands ──────────────────────────────────────────────────── */
 const QUICK_CMDS = [
+  { label: "Internship", cmd: "Tell me about her internship" },
   { label: "Skills", cmd: "What are her skills?" },
   { label: "Projects", cmd: "Tell me about her projects" },
-  { label: "Experience", cmd: "What is her work experience?" },
+  { label: "Education", cmd: "What is her education and CGPA?" },
   { label: "Contact", cmd: "How to contact her?" },
   { label: "Resume", cmd: "Download resume" },
 ];
@@ -80,7 +50,8 @@ export default function AITerminal() {
     setMessages((p) => [...p, { role: "user", text: msg, ts: Date.now() }]);
     setIsTyping(true);
     setTimeout(() => {
-      const reply = getResponse(detectIntent(msg));
+      const intent = detectIntent(msg);
+      const reply = getChatResponse(intent);
       setIsTyping(false);
       setLastBotMsg(reply.split("\n")[0]);
       setMessages((p) => [...p, { role: "bot", text: reply, ts: Date.now() }]);

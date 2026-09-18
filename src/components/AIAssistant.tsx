@@ -2,113 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
-/* ================================================================
-   KNOWLEDGE BASE
-   ================================================================ */
-const KB = {
-  about: `Sowndharya P.L. is an AI Engineer, Full Stack Developer, and Machine Learning Enthusiast from Tirupur, Tamil Nadu, India.
-
-She is currently pursuing B.E. Computer Science & Engineering (Honours in Blockchain Technology) at Dr. N.G.P Institute of Technology (2023–2027) with a CGPA of 8.35.
-
-She has hands-on experience in full-stack web development, AI/ML systems, mobile apps, IoT, and DevOps — with 11 real-world projects on GitHub.`,
-
-  skills: `Programming: Java, Python, C
-AI / Machine Learning: PyTorch, OpenCV, CNN, Image Processing, Grad-CAM / XAI
-Web: HTML, CSS, JavaScript, PHP, Laravel, Node.js, Express, Bootstrap, React (Next.js)
-Databases: SQL, MySQL, PostgreSQL, SQLite
-DevOps: Docker, Kubernetes
-Tools: Git, GitHub, VS Code, Android Studio, Postman, IntelliJ IDEA`,
-
-  projects: `1. CuraNet – Caregiver Support System (HTML, CSS, JS, PostgreSQL) – github.com/SowndharyaPL15/CuraNet | Demo: https://curanet-mj06.onrender.com/
-2. PharmaTrace AI – Medicine Authentication (Node.js, Express, PostgreSQL, Python, Flask, OpenCV) – github.com/SowndharyaPL15/pharmatrace-ai | Demo: https://pharmatrace-web-server.onrender.com
-3. SmartExpensePro – SMS Expense Tracker (Android, Java, SQLite) – github.com/SowndharyaPL15/SmartExpensePro | Demo: https://smartexpensepro.onrender.com/
-4. Automated Aerial Object Detection – IoT & AI (Arduino, Embedded Systems, IoT, C, C++) – github.com/SowndharyaPL15/Automated-Aerial-Object-Detection | Demo: https://www.tinkercad.com/things/3HbPGczwYv0-automated-aerial-object-detection?sharecode=FA4-ENWj_yRSs6VpOnL5FjKiSQH9pYLQxryuBFYuDFs | Research Paper (2nd Prize)
-5. CivicPulse – Smart Civic Issue Management (PHP, MySQL, JavaScript, Bootstrap) – github.com/SowndharyaPL15/CivicPulse | Demo: https://civicpulse-jq8k.onrender.com
-6. Connectify – Real-Time Chat Application (Laravel, PHP, MySQL, JavaScript, WebSockets) – github.com/SowndharyaPL15/connectify-cartrabbit | Demo: https://connectify-bw2w.onrender.com
-7. ModelHubX – MLOps Registry & Deployment (FastAPI, Kubernetes, Redis, Docker, Next.js) – github.com/SowndharyaPL15/ModelHubX | Demo: https://modelhubx-1.onrender.com/
-8. AI Product Authentication System (Python, PyTorch, OpenCV, CNN, React) – github.com/SowndharyaPL15/AI-Product-Authentication-System | Demo: https://ai-product-authentication-system.onrender.com
-9. Clixora – URL Shortening & Analytics (React, Node.js, Express, PostgreSQL) – github.com/SowndharyaPL15/Clixora | Demo: https://clixora-frontend.onrender.com
-10. INDUS AI – Industrial Cognitive Memory System (FastAPI, React, PostgreSQL, FAISS, LangChain, Python) – github.com/SowndharyaPL15/indus_ai | Demo: https://indus-ai-frontend.onrender.com
-11. Precision Oncology – Clinical Decision Support System (FastAPI, React, TensorFlow, PyTorch, DenseNet, Explainable AI) – github.com/SowndharyaPL15/Precision-Oncology-CDSS | Demo: https://precision-oncology-frontend.onrender.com`,
-
-  education: `🎓 B.E. Computer Science & Engineering (Honours in Blockchain Technology)
-   Dr. N.G.P Institute of Technology | 2023–2027 | CGPA: 8.35 (SEM-6)
-
-📚 HSE (Higher Secondary Education)
-   Sakthi Vigneswara School | 2021–2023 | 84%
-
-📚 SSLC
-   Sri Sai Matriculation School | 2021 | Passed`,
-
-  internship: `💼 Software Development Intern — Mist Software Solutions, Coimbatore (15 Days)
-
-Key contributions:
-• Built responsive UIs using HTML, CSS, JavaScript, Bootstrap
-• Developed backend logic with PHP
-• Implemented full CRUD operations for dynamic data management
-• Designed relational database schemas
-• Debugged and tested applications for reliability`,
-
-  certifications: `🏆 Full Stack Java Development – Simplilearn (2025)
-⚡ Java Full Stack with React JS & AI – Brainovision Solutions (2024)
-🐍 Data Science using Python – Dr. N.G.P. iTech & Brainovision (2024)
-🥈 2nd Prize – Paper Presentation on "Aerial Object Detection" (IoT) – 2024`,
-
-  contact: `📧 Email: plsowndharya@gmail.com
-📱 Phone: +91 9884606863
-📍 Location: Tirupur, Tamil Nadu, India
-💼 LinkedIn: linkedin.com/in/sowndharyapl
-🐙 GitHub: github.com/SowndharyaPL15
-💡 LeetCode: leetcode.com/u/SOWNDHARYAPL`,
-
-  resume: `📄 Sowndharya's Resume is available for interactive preview and download.
-
-It includes her verified academic record (B.E. CSE Blockchain Honours, CGPA 8.35), 11 projects, software development internship at Mist Software, and verified certifications.`,
-};
-
-type Intent =
-  | "about"
-  | "skills"
-  | "projects"
-  | "education"
-  | "internship"
-  | "certifications"
-  | "contact"
-  | "resume"
-  | "greeting"
-  | "unknown";
-
-function detectIntent(input: string): Intent {
-  const q = input.toLowerCase();
-  if (/\b(who|about|yourself|tell me|introduce|name|background)\b/.test(q)) return "about";
-  if (/\b(skill|tech|stack|language|tool|framework|know|proficient|expertise)\b/.test(q)) return "skills";
-  if (/\b(project|built|developed|app|work|create|github|repository|repo)\b/.test(q)) return "projects";
-  if (/\b(edu|study|degree|college|university|cgpa|grade|academic|school)\b/.test(q)) return "education";
-  if (/\b(intern|experience|job|career|work experience|professional)\b/.test(q)) return "internship";
-  if (/\b(cert|award|achieve|prize|certification|recognition)\b/.test(q)) return "certifications";
-  if (/\b(contact|email|phone|reach|connect|linkedin|github|social|location)\b/.test(q)) return "contact";
-  if (/\b(resume|cv|download|pdf)\b/.test(q)) return "resume";
-  if (/\b(hi|hello|hey|greet|good morning|good evening|howdy|sup)\b/.test(q)) return "greeting";
-  return "unknown";
-}
-
-function getResponse(intent: Intent): string {
-  switch (intent) {
-    case "about":         return KB.about;
-    case "skills":        return KB.skills;
-    case "projects":      return KB.projects;
-    case "education":     return KB.education;
-    case "internship":    return KB.internship;
-    case "certifications":return KB.certifications;
-    case "contact":       return KB.contact;
-    case "resume":        return KB.resume;
-    case "greeting":
-      return "Hello! 👋 I'm Sowndharya's AI Portfolio Guide. I can tell you about her skills, projects, education, internship, certifications, or how to contact her. What would you like to know?";
-    default:
-      return "I can help you learn about Sowndharya's skills, projects, education, experience, certifications, or contact details.\n\nTry asking:\n• \"What are her skills?\"\n• \"Tell me about her projects\"\n• \"What is her education?\"\n• \"How to contact her?\"";
-  }
-}
+import { detectIntent, getChatResponse } from "@/utils/chatEngine";
 
 interface Message {
   role: "user" | "bot";
@@ -117,10 +11,12 @@ interface Message {
 }
 
 const QUICK_PROMPTS = [
-  "What are her skills?",
-  "Show her projects",
-  "How to contact her?",
-  "Download resume",
+  "💼 Internship details",
+  "⚡ Skills & Stack",
+  "🚀 Show projects",
+  "🎓 Education & CGPA",
+  "📄 Download resume",
+  "📬 Contact info",
 ];
 
 export default function AIAssistant() {
@@ -128,7 +24,7 @@ export default function AIAssistant() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "bot",
-      text: "Hi! 👋 I'm Sowndharya's AI Portfolio Guide.\n\nAsk me anything about her skills, projects, education, or how to get in touch!",
+      text: "Hi! 👋 I'm Sowndharya's AI Portfolio Guide.\n\nAsk me anything about her internship, skills, projects, education, or how to get in touch!",
       ts: Date.now(),
     },
   ]);
@@ -162,13 +58,14 @@ export default function AIAssistant() {
       setIsTyping(true);
 
       const intent = detectIntent(msg);
+      const reply = getChatResponse(intent);
       const delay = 100;
 
       setTimeout(() => {
         setIsTyping(false);
         setMessages((prev) => [
           ...prev,
-          { role: "bot", text: getResponse(intent), ts: Date.now() },
+          { role: "bot", text: reply, ts: Date.now() },
         ]);
       }, delay);
     },
