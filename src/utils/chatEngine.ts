@@ -55,6 +55,7 @@ export type ChatIntent =
   | "project_indus"
   | "project_oncology"
   | "education"
+  | "courses"
   | "cgpa"
   | "certifications"
   | "contact"
@@ -151,6 +152,16 @@ export const KB = {
 • Higher Secondary (12th): **84%** at Sakthi Vigneswara School
 • SSLC (10th): **Passed** at Sri Sai Matriculation School`,
 
+  courses: `🎓 Academic Degree & Course:
+• **B.E. Computer Science & Engineering (Honours in Blockchain Technology)**
+  Dr. N.G.P. Institute of Technology, Coimbatore (2023–2027) | Current CGPA: 8.35
+
+📜 Specialized Certifications & Industry Courses Completed:
+1. 🥇 **Full Stack Java Development** — Simplilearn (2025)
+2. ⚡ **Java Full Stack with React JS & AI** — Brainovision Solutions (2024)
+3. 🐍 **Data Science using Python** — Dr. N.G.P. iTech & Brainovision (2024)
+4. 🥈 **Paper Presentation on Aerial Object Detection (IoT & AI)** — 2nd Prize Winner (2024)`,
+
   internship: `💼 Software Development Intern — Mist Software Solutions, Coimbatore (15 Days)
 
 Key Contributions & Responsibilities:
@@ -197,7 +208,7 @@ I can help you explore:
 • 💼 Internship & Experience at Mist Software
 • 💻 Technical Skills & Tech Stack
 • 🚀 11 Real-World Projects & Live Demos
-• 🎓 Education & CGPA (8.35)
+• 🎓 Education, Degree & Courses
 • 🏆 Certifications & Achievements
 • 📄 Resume Preview & Download
 • 📬 Contact Info & Socials
@@ -212,7 +223,7 @@ Try asking about:
 • 💼 "Tell me about her internship" or "Work experience"
 • 💻 "What are her skills and tech stack?"
 • 🚀 "Show her projects" or "Tell me about CuraNet / PharmaTrace"
-• 🎓 "What is her education and CGPA?"
+• 🎓 "What is her education, degree, or courses done?"
 • 🏆 "What certifications does she hold?"
 • 📄 "Download resume"
 • 📬 "How to contact her?"`,
@@ -298,7 +309,7 @@ const INTERNSHIP_KEYWORDS = [
 
 const SKILL_KEYWORDS = [
   "skill", "skills", "skil", "skils", "tech", "techs", "stack", "stacks",
-  "technology", "technologies", "technolog", "technologies", "language", "languages",
+  "technology", "technologies", "technolog", "language", "languages",
   "programming", "programing", "coding", "code", "framework", "frameworks",
   "tool", "tools", "expertise", "proficient", "proficiency", "abilities",
   "python", "java", "react", "nextjs", "node", "express", "fastapi", "laravel",
@@ -319,6 +330,13 @@ const EDUCATION_KEYWORDS = [
   "b.e", "be cse", "cse", "blockchain honours", "ngp", "dr ngp",
   "sakthi", "sakthi vigneswara", "sai matriculation", "sslc", "hse",
   "10th", "12th", "study", "studying", "studies", "studied", "matriculation"
+];
+
+const COURSE_KEYWORDS = [
+  "course", "courses", "corse", "corses", "cours", "coursework", "curriculum",
+  "major", "specialization", "specialisation", "branch", "department",
+  "dept", "stream", "field", "study field", "qualification", "qualifications",
+  "undergraduate", "ug", "btech", "blockchain", "b.e cse"
 ];
 
 const CGPA_KEYWORDS = [
@@ -382,6 +400,11 @@ export function detectIntent(rawInput: string): ChatIntent {
   if (/\b(indus|indus ai|industrial memory)\b/.test(cleanStr)) return "project_indus";
   if (/\b(oncology|precision oncology|cdss|cancer)\b/.test(cleanStr)) return "project_oncology";
 
+  // Course / Degree / Qualification direct sub-intents
+  if (/\b(course|courses|corse|corses|coursework|curriculum|major|specialization|specialisation|branch|qualification|qualifications|stream|department)\b/.test(cleanStr)) {
+    return "courses";
+  }
+
   // Contact sub-intents
   if (/\b(email|gmail|mail id|send email)\b/.test(cleanStr)) return "email";
   if (/\b(phone|mobile|call|number|whatsapp)\b/.test(cleanStr)) return "phone";
@@ -398,6 +421,7 @@ export function detectIntent(rawInput: string): ChatIntent {
   let skillsScore = 0;
   let projectsScore = 0;
   let educationScore = 0;
+  let coursesScore = 0;
   let certsScore = 0;
   let contactScore = 0;
   let resumeScore = 0;
@@ -418,9 +442,20 @@ export function detectIntent(rawInput: string): ChatIntent {
   if (/download\s*resume|view\s*resume|get\s*resume|resume\s*pdf/.test(cleanStr)) {
     resumeScore += 20;
   }
+  if (/type\s*of\s*course|which\s*course|what\s*course|courses\s*done|course\s*done|courses\s*she\s*done|course\s*she\s*done|courses\s*completed|field\s*of\s*study|what\s*did\s*she\s*study|what\s*is\s*she\s*studying|her\s*qualification/.test(cleanStr)) {
+    coursesScore += 25;
+  }
 
   // Check token by token
   for (const token of tokens) {
+    // Course matching
+    for (const kw of COURSE_KEYWORDS) {
+      if (token === kw || (token.length >= 5 && isFuzzyMatch(token, kw, 1))) {
+        coursesScore += kw === "course" || kw === "courses" || kw === "qualification" ? 10 : 5;
+        break;
+      }
+    }
+
     // Internship matching (including typo tolerance for "intership", "internshp", etc.)
     for (const kw of INTERNSHIP_KEYWORDS) {
       if (token === kw || isFuzzyMatch(token, kw, 1)) {
@@ -500,6 +535,7 @@ export function detectIntent(rawInput: string): ChatIntent {
     skillsScore,
     projectsScore,
     educationScore,
+    coursesScore,
     certsScore,
     contactScore,
     resumeScore
@@ -522,6 +558,7 @@ export function detectIntent(rawInput: string): ChatIntent {
   }
 
   const scores: { intent: ChatIntent; score: number }[] = [
+    { intent: "courses", score: coursesScore },
     { intent: "internship", score: internshipScore },
     { intent: "skills", score: skillsScore },
     { intent: "projects", score: projectsScore },
@@ -545,6 +582,8 @@ export function detectIntent(rawInput: string): ChatIntent {
 
 export function getChatResponse(intent: ChatIntent): string {
   switch (intent) {
+    case "courses":
+      return KB.courses;
     case "internship":
       return KB.internship;
     case "skills":
