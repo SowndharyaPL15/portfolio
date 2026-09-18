@@ -373,10 +373,14 @@ const THANKS_KEYWORDS = [
 
 const ABOUT_KEYWORDS = [
   "who is sowndharya", "who is she", "who are you", "about sowndharya",
+  "about her", "about you", "about me", "tell me about herself",
   "tell me about yourself", "tell me about sowndharya", "tell me about her",
-  "introduce yourself", "introduce sowndharya", "biography",
+  "tell about her", "tell about sowndharya", "introduce yourself",
+  "introduce sowndharya", "introduce her", "biography",
   "bio", "background", "who made this", "who built this",
-  "author", "creator", "profile summary", "about me"
+  "author", "creator", "profile summary", "profile overview",
+  "details about her", "who is the developer", "more about her",
+  "more about sowndharya", "what about her"
 ];
 
 export function detectIntent(rawInput: string): ChatIntent {
@@ -541,19 +545,20 @@ export function detectIntent(rawInput: string): ChatIntent {
     resumeScore
   );
 
-  // About intent should only match if no domain-specific query exists or explicit about queries
+  // About intent should match if no domain-specific query exists and query asks about the person/profile
   if (maxDomainScore === 0) {
+    if (
+      /\b(about|who|intro|introduce|introduction|bio|biography|profile|background|overview|summary|herself|yourself|sowndharya|developer|creator|author)\b/.test(
+        cleanStr
+      )
+    ) {
+      aboutScore += 20;
+    }
     for (const phrase of ABOUT_KEYWORDS) {
       if (cleanStr.includes(phrase)) {
-        aboutScore += 15;
+        aboutScore += 20;
         break;
       }
-    }
-    if (/^(who|about|introduce|yourself|bio|background|profile|sowndharya)$/.test(cleanStr.trim())) {
-      aboutScore += 15;
-    }
-    if (/^tell me about (her|yourself|sowndharya|you)$/.test(cleanStr.trim())) {
-      aboutScore += 15;
     }
   }
 
