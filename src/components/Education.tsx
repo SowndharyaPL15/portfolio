@@ -9,7 +9,6 @@ const EDUCATION = [
     degree:      "B.E. Computer Science & Engineering\n(Honours in Blockchain Technology)",
     institution: "Dr. N.G.P Institute of Technology",
     details:     "CGPA: 8.35 (SEM-6)",
-    pdf:         "/BE CSE.pdf",
     icon:        "🎓",
   },
   {
@@ -17,7 +16,6 @@ const EDUCATION = [
     degree:      "Higher Secondary Education (HSE)",
     institution: "Sakthi Vigneswara School",
     details:     "Percentage: 84%",
-    pdf:         "/HSE.pdf",
     icon:        "📚",
   },
   {
@@ -25,7 +23,6 @@ const EDUCATION = [
     degree:      "SSLC",
     institution: "Sri Sai Matriculation School",
     details:     "Passed",
-    pdf:         "/SSLC.pdf",
     icon:        "📝",
   },
 ];
@@ -87,48 +84,24 @@ export default function Education() {
                     {edu.year}
                   </span>
                 </div>
-                <span className="font-space text-[10px]" style={{ color: "var(--text-muted)" }}>
+                <span
+                  className="font-space text-[10px] px-2 py-0.5 rounded font-semibold"
+                  style={{
+                    background: "var(--glow-xs)",
+                    border: "1px solid var(--border-subtle)",
+                    color: "var(--accent-secondary)",
+                  }}
+                >
                   {edu.details}
                 </span>
               </div>
 
               {/* Degree */}
-              <h3 className="text-sm font-bold font-space mb-1 leading-snug" style={{ color: "var(--text-main)" }}>
-                <a
-                  href={edu.pdf}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-colors hover:underline"
-                  style={{ color: "inherit" }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--accent-primary)"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = ""; }}
-                  aria-label={`View ${edu.degree} certificate`}
-                >
-                  {edu.degree}
-                </a>
+              <h3 className="text-sm font-bold font-space mb-1.5 leading-snug whitespace-pre-line" style={{ color: "var(--text-main)" }}>
+                {edu.degree}
               </h3>
 
               <p className="text-xs" style={{ color: "var(--text-muted)" }}>{edu.institution}</p>
-
-              {/* Verify link */}
-              <div className="mt-4 pt-3 flex justify-end" style={{ borderTop: "1px solid var(--border-subtle)" }}>
-                <a
-                  href={edu.pdf}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 font-space text-[10px] transition-colors"
-                  style={{ color: "var(--accent-primary)", opacity: 0.7 }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = "0.7"; }}
-                  aria-label={`Verify ${edu.degree} credentials`}
-                >
-                  VERIFY CREDENTIALS
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round"
-                      d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                  </svg>
-                </a>
-              </div>
             </div>
           </motion.div>
         ))}
